@@ -1,6 +1,6 @@
 variable "region" {
   type    = string
-  default = "ap-south-1"
+  default = "us-east-1"
 }
 
 variable "vpc_cidr" {
@@ -20,7 +20,7 @@ variable "private_subnets" {
 
 variable "azs" {
   type    = list(string)
-  default = ["ap-south-1a", "ap-south-1b"]
+  default = ["us-east-1a", "us-east-1b"]
 }
 
 variable "asg_min_size" {
@@ -47,6 +47,6 @@ variable "tags" {
   type = map(string)
   default = {
     Project     = "python-crud"
-    Environment = "prod"
+    Environment = "dev"
   }
 }
