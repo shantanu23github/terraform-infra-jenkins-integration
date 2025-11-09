@@ -188,6 +188,91 @@ Outputs:
 | target_group_arn | ARN of the ALB target group                  |
 
 
+# Architecture  
+
+### VPC Network Foundation
+
+Creates an Amazon Virtual Private Cloud (VPC) with CIDR block segmentation.
+
+Defines both public and private subnets distributed across multiple Availability Zones (AZs) for high availability and fault tolerance.
+
+Configures Internet Gateway and NAT Gateway:
+
+        Internet Gateway enables internet access to public subnets.
+        
+        NAT Gateway allows instances in private subnets to initiate outbound internet connections securely.
+
+Custom route tables route traffic appropriately to IGW for public subnets and NAT Gateway for private subnets.
+
+Tags and naming conventions organize resources for clarity and management.
+
+### Security Groups for Traffic Control
+
+Security Group for Application Load Balancer (ALB) allows inbound HTTP (80) and HTTPS (443) traffic from anywhere (internet).
+
+Security Group for Application Servers allows inbound HTTP only from ALB SG and SSH only from trusted CIDR (e.g., internal network).
+
+Outbound traffic from security groups is fully open (allow all), common for controlled environments.
+
+This separation ensures layered security minimizing exposure of backend EC2 instances.
+
+### IAM Roles for Instance Permissions
+
+IAM role with an EC2 assume-role policy lets EC2 instances authenticate securely.
+
+Attaches managed policies like AmazonSSMManagedInstanceCore (for AWS Systems Manager), CloudWatchAgentServerPolicy (for monitoring), and AmazonS3ReadOnlyAccess (for secure S3 reads).
+
+IAM Instance Profile bundles the role to be associated during EC2 instance launch.
+
+### Auto Scaling Group with Launch Template
+
+Defines a launch template specifying:
+
+Latest Amazon Linux 2 AMI dynamically resolved via SSM parameter store.
+
+Instance type as defined by user inputs.
+
+IAM instance profile for permissions.
+
+Security groups applying the network controls.
+
+User data script encoded to bootstrap instances.
+
+Creates an Auto Scaling Group to manage EC2 instance scaling automatically across private subnets.
+
+Integrates with an ALB target group for load distribution.
+
+Health checks via ELB ensure only healthy instances serve traffic.
+
+Set minimum, desired, and maximum scaling bounds for capacity management.
+
+### Application Load Balancer (ALB) Setup
+
+Internet-facing ALB distributes incoming HTTP traffic to the application instances.
+
+Deployed across public subnets ensuring availability.
+
+Associated with the ALB Security Group controlling inbound traffic.
+
+Target group configured to check instance health and forward traffic to instance targets.
+
+HTTP listener on port 80 forwards requests to target group.
+
+### Terraform Best Practices Employed
+
+Modular design, breaking infrastructure into reusable, logical modules (VPC, IAM, SG, ASG, ALB).
+
+Clear separation of variables, outputs, and minimal use of defaults for flexibility.
+
+Remote state management is intended (per your deliverables), typically utilizing S3 and DynamoDB for state file storage and state locking (not explicitly shown but recommended).
+
+Use of dynamic data sources (e.g., AWS SSM Parameter for fetching AMI) to avoid hard-coding and support upgrades.
+
+Well-tagged resources and meaningful naming conventions for manageability.
+
+Jenkins integration (as per your original goal) can automate entire provisioning lifecycle with plan, approval gates, and apply steps.
+
+
        
    
 
