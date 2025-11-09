@@ -1,4 +1,7 @@
 # terraform-infra
-# Architecture Diagram
+
+## Setup Instructions
+
+1. How to install Terraform and Jenkins on EC2.
 
 
