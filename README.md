@@ -36,25 +36,25 @@ The VPC module provisions a complete Virtual Private Cloud (VPC) setup including
 
 Resources Created:  
 
-** aws_vpc.this **: The main VPC with defined CIDR block.
+**aws_vpc.this**: The main VPC with defined CIDR block.
 
-aws_internet_gateway.this: Internet Gateway attached to the VPC.
+**aws_internet_gateway.this**: Internet Gateway attached to the VPC.
 
-aws_subnet.public: List of public subnets with public IP mapping enabled.
+**aws_subnet.public**: List of public subnets with public IP mapping enabled.
 
-aws_subnet.private: List of private subnets.
+**aws_subnet.private**: List of private subnets.
 
-aws_eip.nat: Elastic IP for the NAT Gateway.
+**aws_eip.nat**: Elastic IP for the NAT Gateway.
 
-aws_nat_gateway.this: NAT Gateway deployed in first public subnet.
+**aws_nat_gateway.this**: NAT Gateway deployed in first public subnet.
 
-aws_route_table.public: Route table for public subnets with a default route to the Internet Gateway.
+**aws_route_table.public**: Route table for public subnets with a default route to the Internet Gateway.
 
-aws_route_table.private: Route table for private subnets with a default route to the NAT Gateway.
+**aws_route_table.private**: Route table for private subnets with a default route to the NAT Gateway.
 
 Route table associations for each subnet accordingly.  
 
-Input Variables:  
+**Input Variables**:  
 
 | Name            | Type         | Description                                         |
 | --------------- | ------------ | --------------------------------------------------- | 
@@ -66,7 +66,7 @@ Input Variables:
 | tags            | map(string)  | Map of tags to apply to all created resources       |  
 
 
-outputs:  
+**outputs**:  
 
 | Name               | Description                                |
 | ------------------ | ------------------------------------------ |
@@ -77,6 +77,20 @@ outputs:
 
 
 ### IAM Module
+
+This module creates an IAM role for EC2 instances with an assume role policy that allows EC2 service to assume the role. It attaches essential managed policies to enable common AWS service integrations and creates an instance profile to associate with EC2 instances.  
+
+**Resources Created**  
+
+        **aws_iam_role.ec2_role**: IAM role with assume role trust policy for EC2 service.
+
+       ** aws_iam_role_policy_attachment.ssm**: Attach AmazonSSMManagedInstanceCore for SSM.
+        
+        aws_iam_role_policy_attachment.cwagent: Attach CloudWatchAgentServerPolicy for monitoring.
+        
+        aws_iam_role_policy_attachment.s3_read: Attach AmazonS3ReadOnlyAccess for S3 read-only permissions.
+        
+        aws_iam_instance_profile.ec2_profile: Instance profile to associate role with EC2 instances.
 
 ### Security Group Module
 
