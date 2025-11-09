@@ -82,15 +82,29 @@ This module creates an IAM role for EC2 instances with an assume role policy tha
 
 **Resources Created**  
 
-        **aws_iam_role.ec2_role**: IAM role with assume role trust policy for EC2 service.
+**aws_iam_role.ec2_role**: IAM role with assume role trust policy for EC2 service.
 
-       ** aws_iam_role_policy_attachment.ssm**: Attach AmazonSSMManagedInstanceCore for SSM.
-        
-        aws_iam_role_policy_attachment.cwagent: Attach CloudWatchAgentServerPolicy for monitoring.
-        
-        aws_iam_role_policy_attachment.s3_read: Attach AmazonS3ReadOnlyAccess for S3 read-only permissions.
-        
-        aws_iam_instance_profile.ec2_profile: Instance profile to associate role with EC2 instances.
+**aws_iam_role_policy_attachment.ssm**: Attach AmazonSSMManagedInstanceCore for SSM.
+
+**aws_iam_role_policy_attachment.cwagent**: Attach CloudWatchAgentServerPolicy for monitoring.
+
+**aws_iam_role_policy_attachment.s3_read**: Attach AmazonS3ReadOnlyAccess for S3 read-only permissions.
+
+**aws_iam_instance_profile.ec2_profile**: Instance profile to associate role with EC2 instances.  
+
+**Input Variables**:
+| Name | Type        | Description                     | 
+| ---- | ----------- | ------------------------------- | 
+| name | string      | Base name for IAM resources     | 
+| tags | map(string) | Tags to attach to all resources |  
+
+
+**Outputs**:
+| Name                  | Description                          |
+| --------------------- | ------------------------------------ |
+| instance_profile_name | Name of the created instance profile |
+| instance_role_name    | Name of the created IAM role         |  
+
 
 ### Security Group Module
 
