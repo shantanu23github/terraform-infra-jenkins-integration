@@ -7,7 +7,7 @@
 https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
 
 2. AWS Backend Setup                  
-         1. Create an S3 bucket for Terraform remote state storage with versioning enabled:
+         1. Create an S3 bucket for Terraform remote state storage with versioning enabled:                  
                ```
                aws s3 mb s3://your-terraform-state-bucket
                aws s3api put-bucket-versioning --bucket your-terraform-state-bucket --versioning-configuration Status=Enabled  
