@@ -36,7 +36,7 @@ The VPC module provisions a complete Virtual Private Cloud (VPC) setup including
 
 Resources Created:  
 
-aws_vpc.this: The main VPC with defined CIDR block.
+** aws_vpc.this **: The main VPC with defined CIDR block.
 
 aws_internet_gateway.this: Internet Gateway attached to the VPC.
 
