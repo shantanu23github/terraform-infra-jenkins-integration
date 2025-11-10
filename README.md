@@ -43,18 +43,14 @@ Create a DynamoDB table for state locking:
         $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | \
         sudo tee /etc/apt/sources.list.d/hashicorp.list
         
-        sudo apt update
-        sudo apt-get install terraform
-
-
-
-         
+        sudo apt update  
+        sudo apt-get install terraform  
 
 # Module Documentation
 
 
-### VPC Module  
-The VPC module provisions a complete Virtual Private Cloud (VPC) setup including public and private subnets, Internet Gateway, NAT Gateway, and route tables to allow both public internet access for public subnets and secure outbound internet access from private subnets.  
+### VPC Module   
+The VPC module provisions a complete Virtual Private Cloud (VPC) setup including public and private subnets, Internet Gateway, NAT Gateway, and route tables to allow both public internet access for public subnets and secure outbound internet access from private subnets.   
 
 Resources Created:  
 
