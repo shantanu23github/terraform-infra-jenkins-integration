@@ -53,25 +53,25 @@ sudo apt-get install terraform
 ### VPC Module   
 The VPC module provisions a complete Virtual Private Cloud (VPC) setup including public and private subnets, Internet Gateway, NAT Gateway, and route tables to allow both public internet access for public subnets and secure outbound internet access from private subnets.   
 
-Resources Created:  
+**Resources Created**:  
 
-**aws_vpc.this**: The main VPC with defined CIDR block.
-
-**aws_internet_gateway.this**: Internet Gateway attached to the VPC.
-
-**aws_subnet.public**: List of public subnets with public IP mapping enabled.
-
-**aws_subnet.private**: List of private subnets.
-
-**aws_eip.nat**: Elastic IP for the NAT Gateway.
-
-**aws_nat_gateway.this**: NAT Gateway deployed in first public subnet.
-
-**aws_route_table.public**: Route table for public subnets with a default route to the Internet Gateway.
-
-**aws_route_table.private**: Route table for private subnets with a default route to the NAT Gateway.
-
-Route table associations for each subnet accordingly.  
+  **aws_vpc.this**: The main VPC with defined CIDR block.
+  
+  **aws_internet_gateway.this**: Internet Gateway attached to the VPC.
+  
+  **aws_subnet.public**: List of public subnets with public IP mapping enabled.
+  
+  **aws_subnet.private**: List of private subnets.
+  
+  **aws_eip.nat**: Elastic IP for the NAT Gateway.
+  
+  **aws_nat_gateway.this**: NAT Gateway deployed in first public subnet.
+  
+  **aws_route_table.public**: Route table for public subnets with a default route to the Internet Gateway.
+  
+  **aws_route_table.private**: Route table for private subnets with a default route to the NAT Gateway.
+  
+  Route table associations for each subnet accordingly.  
 
 **Input Variables**:  
 
@@ -101,15 +101,15 @@ This module creates an IAM role for EC2 instances with an assume role policy tha
 
 **Resources Created**  
 
-**aws_iam_role.ec2_role**: IAM role with assume role trust policy for EC2 service.
-
-**aws_iam_role_policy_attachment.ssm**: Attach AmazonSSMManagedInstanceCore for SSM.
-
-**aws_iam_role_policy_attachment.cwagent**: Attach CloudWatchAgentServerPolicy for monitoring.
-
-**aws_iam_role_policy_attachment.s3_read**: Attach AmazonS3ReadOnlyAccess for S3 read-only permissions.
-
-**aws_iam_instance_profile.ec2_profile**: Instance profile to associate role with EC2 instances.  
+  **aws_iam_role.ec2_role**: IAM role with assume role trust policy for EC2 service.
+  
+  **aws_iam_role_policy_attachment.ssm**: Attach AmazonSSMManagedInstanceCore for SSM.
+  
+  **aws_iam_role_policy_attachment.cwagent**: Attach CloudWatchAgentServerPolicy for monitoring.
+  
+  **aws_iam_role_policy_attachment.s3_read**: Attach AmazonS3ReadOnlyAccess for S3 read-only permissions.
+  
+  **aws_iam_instance_profile.ec2_profile**: Instance profile to associate role with EC2 instances.  
 
 **Input Variables**:
 | Name | Type        | Description                     | 
