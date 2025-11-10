@@ -5,7 +5,7 @@
 ### **1. Install Jenkins on EC2**
 
 Refer to the official Jenkins AWS installation guide:  
-🔗 https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
+[🔗 https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/](https://www.jenkins.io/doc/book/installing/linux/)
 
 ---
 
