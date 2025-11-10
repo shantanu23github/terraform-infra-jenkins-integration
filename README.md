@@ -279,20 +279,6 @@ Target group configured to check instance health and forward traffic to instance
 
 HTTP listener on port 80 forwards requests to target group.
 
-### Terraform Best Practices Employed
-
-Modular design, breaking infrastructure into reusable, logical modules (VPC, IAM, SG, ASG, ALB).
-
-Clear separation of variables, outputs, and minimal use of defaults for flexibility.
-
-Remote state management is intended (per your deliverables), typically utilizing S3 and DynamoDB for state file storage and state locking (not explicitly shown but recommended).
-
-Use of dynamic data sources (e.g., AWS SSM Parameter for fetching AMI) to avoid hard-coding and support upgrades.
-
-Well-tagged resources and meaningful naming conventions for manageability.
-
-Jenkins integration (as per your original goal) can automate entire provisioning lifecycle with plan, approval gates, and apply steps.
-
 
        
    
