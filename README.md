@@ -19,7 +19,9 @@ aws s3api put-bucket-versioning \
 --bucket your-terraform-state-bucket \
 --versioning-configuration Status=Enabled
    
-Create a DynamoDB table for state locking:                       
+Create a DynamoDB table for state locking:
+
+                      
         aws dynamodb create-table \
         --table-name terraform-lock-table \
         --attribute-definitions AttributeName=LockID,AttributeType=S \
