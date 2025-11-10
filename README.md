@@ -18,9 +18,9 @@ aws s3 mb s3://your-terraform-state-bucket
 aws s3api put-bucket-versioning \
 --bucket your-terraform-state-bucket \
 --versioning-configuration Status=Enabled
-   
+```   
 Create a DynamoDB table for state locking:
-
+```bash
                       
         aws dynamodb create-table \
         --table-name terraform-lock-table \
@@ -28,7 +28,7 @@ Create a DynamoDB table for state locking:
         --key-schema AttributeName=LockID,KeyType=HASH \
         --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
  
-
+```
 3. Terraform Install on ec2.
 ```bash
 sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
