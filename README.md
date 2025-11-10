@@ -128,19 +128,21 @@ This module creates an IAM role for EC2 instances with an assume role policy tha
 ### Security Group Module
 This module creates security groups to control network traffic for the Application Load Balancer (ALB) and application EC2 instances within a VPC. It defines ingress and egress rules aligning with best practices to ensure secure and controlled traffic flow.  
 
-Resources Created
-aws_security_group.alb_sg: Security group for the ALB permitting HTTP and HTTPS ingress from anywhere.
+**Resources Created**:  
+<sub>
+**aws_security_group.alb_sg**: Security group for the ALB permitting HTTP and HTTPS ingress from anywhere.
 
-aws_security_group.app_sg: Security group for application EC2 instances permitting inbound HTTP from ALB security group and SSH from internal network.  
+**aws_security_group.app_sg**: Security group for application EC2 instances permitting inbound HTTP from ALB security group and SSH from internal network.  
+</sub>
 
-Input Variables
+**Input Variables**:  
 | Name   | Type        | Description                                   |
 | ------ | ----------- | --------------------------------------------- |
 | name   | string      | Base name for security group names            |
 | vpc_id | string      | VPC where the security groups will be created |
 | tags   | map(string) | Tags to apply to created security groups      |  
 
-Outputs  
+**Outputs**:    
 
 | Name      | Description                                        |
 | --------- | -------------------------------------------------- |
@@ -150,7 +152,7 @@ Outputs
 ### ASG module
 This module creates an EC2 Auto Scaling Group (ASG) using a launch template that defines the EC2 instance configuration. It automatically scales the number of instances across private subnets and integrates with an existing Elastic Load Balancer target group to distribute traffic.  
 
-Resources Created
+**Resources Created**:  
 aws_launch_template.lt: EC2 launch template with instance details including AMI, instance type, IAM instance profile, security groups, and user data.
 
 aws_autoscaling_group.asg: Auto Scaling Group managing EC2 instances across private subnets with scaling bounds and ELB health checks.  
