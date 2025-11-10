@@ -277,7 +277,63 @@ Associated with the ALB Security Group controlling inbound traffic.
 
 Target group configured to check instance health and forward traffic to instance targets.
 
-HTTP listener on port 80 forwards requests to target group.
+HTTP listener on port 80 forwards requests to target group.  
+
+## Execution steps
+
+Step 1: Create a pipeline from jenkins Dashboard.
+
+Step 2: Create a pipeline script using Declarative or Scripted syntax.
+
+Step 3: Define pipeline stages such as checkout, init, plan and apply.
+
+Step 4: Save the pipeline configuration.
+
+Step 5: Trigger pipeline execution (manually or by commit push).
+
+Step 6: Monitor pipeline progress through logs and stage views.  
+
+
+
+**Pipeline Script**:  
+```bash
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Repository') {
+            steps {
+                git url: 'https://github.com/shantanu23github/terraform-infra-jenkins-integration.git', 
+                    credentialsId: 'github-ssh-key'
+            }
+        }
+        stage('Terraform Init & Plan') {
+            steps {
+                dir('envs/dev') {
+                    sh 'terraform init'
+                    sh 'terraform plan -out=tfplan'
+                }
+            }
+        }
+        stage('Manual Approval') {
+            steps {
+                input message: 'Do you approve terraform apply in envs/dev?', ok: 'Approve'
+            }
+        }
+        stage('Terraform Apply') {
+            steps {
+                    {
+                    dir('envs/dev') {
+                        sh 'terraform apply tfplan'
+                    }
+                }
+            }
+        }
+        
+    }
+}
+```
 
 
        
