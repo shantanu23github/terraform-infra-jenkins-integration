@@ -2,30 +2,48 @@
 
 ## Setup Instructions
 
-1. How to install Jenkins on EC2.
+### **1. Install Jenkins on EC2**
 
-https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
+Refer to the official Jenkins AWS installation guide:  
+🔗 https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
 
-2. AWS Backend Setup                  
-Create an S3 bucket for Terraform remote state storage with versioning enabled:                  
-        aws s3 mb s3://your-terraform-state-bucket
-        aws s3api put-bucket-versioning --bucket your-terraform-state-bucket --versioning-configuration Status=Enabled
+---
+
+### **2. Configure AWS Backend for Terraform Remote State**
+
+Create an S3 bucket for Terraform state storage:
+
+```bash
+aws s3 mb s3://your-terraform-state-bucket
+aws s3api put-bucket-versioning \
+--bucket your-terraform-state-bucket \
+--versioning-configuration Status=Enabled
    
 Create a DynamoDB table for state locking:                       
-aws dynamodb create-table --table-name terraform-lock-table --attribute-definitions AttributeName=LockID,AttributeType=S --key-schema AttributeName=LockID,KeyType=HASH --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5  
+        aws dynamodb create-table \
+        --table-name terraform-lock-table \
+        --attribute-definitions AttributeName=LockID,AttributeType=S \
+        --key-schema AttributeName=LockID,KeyType=HASH \
+        --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+ 
 
 3. Terraform Install on ec2.
         sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
         wget -O- https://apt.releases.hashicorp.com/gpg | \
-        gpg --dearmor | \
-        sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+        gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+        
         gpg --no-default-keyring \
         --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
         --fingerprint
-        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-           
+        
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+        https://apt.releases.hashicorp.com \
+        $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | \
+        sudo tee /etc/apt/sources.list.d/hashicorp.list
+        
         sudo apt update
         sudo apt-get install terraform
+
          
 
 # Module Documentation
